@@ -3,8 +3,10 @@ FROM php:7.2.34-fpm-alpine3.12
 RUN set -ex; \
     apk update; \
     apk upgrade; \
-    apk add --no-cache nginx supervisor mediainfo 
-
+    apk add --no-cache nginx supervisor mediainfo tzdata; \
+    cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime; \
+    apk del tzdata
+    
 # Add Build Dependencies
 RUN apk update && apk add --no-cache --virtual .build-deps  \
     zlib-dev \
